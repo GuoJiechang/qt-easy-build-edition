@@ -76,6 +76,23 @@ if (![System.IO.Directory]::Exists($cmakeInstallDir)) {
 }
 $cmake = Join-Path $cmakeInstallDir 'bin\cmake.exe'
 
+# download cross-platform build script
+$qtBuildScriptName = 'build_qt_with_openssl.cmake'
+$qtBuildScriptFile = Join-Path $destDir $qtBuildScriptName
+$url = ('https://raw.githubusercontent.com/jcfr/qt-easy-build/' + $qtBuildScriptVersion + '/cmake/' + $qtBuildScriptName)
+Always-Download-File $url $qtBuildScriptFile
+
+# download cross-platform helper script(s)
+$scriptName = 'QEBGetOpenSSLBinariesDownloadURL.cmake'
+$scriptFile = Join-Path $destDir $scriptName
+$url = ('https://raw.githubusercontent.com/jcfr/qt-easy-build/' + $qtBuildScriptVersion + '/cmake/' + $scriptName)
+Always-Download-File $url $scriptFile
+
+# download cross-platform helper script(s)
+$scriptName = 'QEBQt4ExternalProjectCommand.cmake'
+$scriptFile = Join-Path $destDir $scriptName
+$url = ('https://raw.githubusercontent.com/GuoJiechang/qt-easy-build-edition/master/QEBQt4ExternalProjectCommand.cmake')
+Always-Download-File $url $scriptFile
 
 pushd $destDir
 
